@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clients List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .logout-btn {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Clients List</h1>
+
+    <!-- Display clients in table format -->
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+                <tr>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.email }}</td>
+                    <td>
+                        <a href="{% url 'edit_client' client.id %}">Edit</a> | 
+                        <a href="{% url 'delete_client' client.id %}">Delete</a> | 
+                        <a href="{% url 'add_project' client.id %}">Add Project</a>|
+                        <a href="{% url 'client_detail' client.id %}">See Project</a>
+
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No clients found. <a href="{% url 'register_client' %}">Register a new client</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Register New Client button -->
+    <p><a href="{% url 'register_client' %}">Register New Client</a></p>
+
+    <!-- View My Projects button -->
+    {% comment %} <p><a href="{% url 'user_projects' %}">View My Projects</a></p> {% endcomment %}
+
+    <!-- Logout button -->
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="logout-btn" type="submit">Logout</button>
+    </form>
+</body>
+</html>

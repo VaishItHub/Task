@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ client.name }} - Details</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Heading styling */
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        /* Paragraph styling */
+        p {
+            font-size: 16px;
+            color: #555;
+            text-align: center;
+        }
+
+        /* List styling */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Link styling */
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Container for the content */
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ client.name }}</h1>
+        <p>Email: {{ client.email }}</p>
+        <p>Phone: {{ client.phone }}</p>
+
+        <h2>Projects</h2>
+        <ul>
+            {% for project in client.projects.all %}
+                <li>{{ project.name }}</li>
+            {% empty %}
+                <li>No projects available for this client.</li>
+            {% endfor %}
+        </ul>
+
+        <p><a href="{% url 'client_list' %}">Back to Clients</a></p>
+    </div>
+</body>
+</html>

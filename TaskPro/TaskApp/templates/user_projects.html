@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Projects</title>
+</head>
+<body>
+    <h1>Projects Assigned to {{ user.username }}</h1>
+
+
+    <ul>
+        {% for project in projects %}
+            <li>
+                {{ project.name }} - Assigned to: 
+                {% for user in project.assigned_users.all %}
+                    {{ user.username }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </li>
+        {% empty %}
+            <li>No projects assigned to you yet.</li>
+        {% endfor %}
+    </ul>
+
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+    <p><a href="{% url 'client_list' %}">Back to Clients</a></p>
+</body>
+</html>
